@@ -21,7 +21,7 @@ const moontech = async () => {
 
         // Check Server is Ok or Not
         app.get('/', (req, res) => {
-            res.send('Welcome Moon TechApp');
+            res.send('Welcome Moon Tech App!');
         })
         /***************************** Products************************** */
         // Post New Products 
@@ -35,7 +35,13 @@ const moontech = async () => {
             let result = await productsCollection.find({}).toArray();
             res.send(result);
         })
-
+        // Delete Single Product
+        app.delete('/products/:id', async (req, res) => {
+            const getID = req.params.id
+            const filter = { _id: ObjectId(getID) }
+            const result = await productsCollection.deleteOne(filter)
+            res.send(result)
+        })
 
     }
     finally {
